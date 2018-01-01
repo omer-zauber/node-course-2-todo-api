@@ -93,10 +93,10 @@ describe('GET /todos', () => {
                 .end(done);
         });
 
-        it('should return a 400 if id is invalid',(done) => {
+        it('should return a 404 if id is invalid',(done) => {
             request(app)
                 .get(`/todos/5a44c871b`)
-                .expect(400)
+                .expect(404)
                 .end(done);
         });
     });
