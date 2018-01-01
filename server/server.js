@@ -1,3 +1,5 @@
+require('./config/config');
+
 const _ = require('lodash');
 const express = require('express');
 const bodyParser = require('body-parser');
@@ -8,7 +10,7 @@ const { Todo } = require('./models/todo');
 const { User } = require('./models/user');
 
 const app = express();
-const port =  process.env.PORT || 3000;
+const port = process.env.PORT;
 
 app.use(bodyParser.json());
 
@@ -59,7 +61,7 @@ app.patch('/todos/:id', (req, res) => {
     const body = _.pick(req.body, ['text', 'completed']);
     if(!ObjectID.isValid(id)) return res.status(404).send({e: 'Todo id is not valid!'});
 
-    if (_.isBoolean(body.completed) && body.completed) body.completedAt = new Date().getTime();
+    if (_.isBoolean(body.completed) && body.completed) body.completedAt = Date.now();
     else {
         body.completed = false;
         body.completedAt = null;
