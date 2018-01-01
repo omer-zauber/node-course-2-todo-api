@@ -33,9 +33,8 @@ app.get('/todos/:id',(req, res) => {
     const id = req.params.id;
     Todo.findById(id).then(todo =>{
         if (!todo) res.status(404).send({e: 'Todo not nound'})
-        res.send({todo})
-    },
-    e => {
+        else res.send({todo})
+    }).catch(e => {
         if(!ObjectID.isValid(id)) res.status(400).send({e: 'Todo id is not valid!'});
         else res.status(400).send({});
     });
