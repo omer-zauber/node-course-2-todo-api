@@ -73,6 +73,20 @@ app.patch('/todos/:id', (req, res) => {
     }).catch(e => res.status(400).send());
 });
 
+// POST /users
+// use _.pick(email, password)
+
+app.post('/users', (req, res) => {
+    // const body = _.pick(req.body, ['text', 'completed']);
+    const body = _.pick(req.body, ['email', 'password']);
+    const user = new User(body);
+    user.save().then((user) => {
+             res.send(user);
+         }, (e) => {
+             res.status(400).send(e.errmsg || e);//(e.password.message || e.email.message));
+    });
+});
+
 app.listen(port, () => console.log(`Started on port ${port}`));
 
 
